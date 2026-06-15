@@ -7,59 +7,59 @@ use Illuminate\Http\Request;
 
 class MataKuliahController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $mataKuliahs = MataKuliah::all();
+        return view('matakuliah.index', compact('mataKuliahs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('matakuliah.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'kode_mk' => 'required',
+            'nama_mk' => 'required',
+            'sks' => 'required'
+        ]);
+
+        MataKuliah::create([
+            'kode_mk' => $request->kode_mk,
+            'nama_mk' => $request->nama_mk,
+            'sks' => $request->sks
+        ]);
+
+        return redirect()->route('matakuliah.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(MataKuliah $mataKuliah)
+    public function show(MataKuliah $matakuliah)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MataKuliah $mataKuliah)
+    public function edit(MataKuliah $matakuliah)
     {
-        //
+        return view('matakuliah.edit', compact('matakuliah'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, MataKuliah $mataKuliah)
+    public function update(Request $request, MataKuliah $matakuliah)
     {
-        //
+        $matakuliah->update([
+            'kode_mk' => $request->kode_mk,
+            'nama_mk' => $request->nama_mk,
+            'sks' => $request->sks
+        ]);
+
+        return redirect()->route('matakuliah.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(MataKuliah $mataKuliah)
+    public function destroy(MataKuliah $matakuliah)
     {
-        //
+        $matakuliah->delete();
+
+        return redirect()->route('matakuliah.index');
     }
 }
