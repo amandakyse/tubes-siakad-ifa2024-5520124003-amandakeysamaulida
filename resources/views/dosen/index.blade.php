@@ -11,12 +11,12 @@
 
     <table border="1" cellpadding="10">
         <tr>
-            <th>Aksi</th>
             <th>No</th>
             <th>NIDN</th>
             <th>Nama</th>
             <th>Email</th>
             <th>No HP</th>
+            <th>Aksi</th>
         </tr>
 
         @foreach($dosens as $dosen)
