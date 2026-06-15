@@ -11,25 +11,40 @@ class DosenController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    $dosens = Dosen::all();
+    return view('dosen.index', compact('dosens'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+{
+    return view('dosen.create');
+}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $request->validate([
+        'nidn' => 'required',
+        'nama' => 'required',
+        'email' => 'required|email',
+        'no_hp' => 'required'
+    ]);
+
+    Dosen::create([
+        'nidn' => $request->nidn,
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'no_hp' => $request->no_hp
+    ]);
+
+    return redirect()->route('dosen.index');
+}
 
     /**
      * Display the specified resource.
@@ -44,7 +59,7 @@ class DosenController extends Controller
      */
     public function edit(Dosen $dosen)
     {
-        //
+    return view('dosen.edit', compact('dosen'));
     }
 
     /**
@@ -52,7 +67,14 @@ class DosenController extends Controller
      */
     public function update(Request $request, Dosen $dosen)
     {
-        //
+    $dosen->update([
+        'nidn' => $request->nidn,
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'no_hp' => $request->no_hp
+    ]);
+
+    return redirect()->route('dosen.index');
     }
 
     /**
@@ -60,6 +82,8 @@ class DosenController extends Controller
      */
     public function destroy(Dosen $dosen)
     {
-        //
+    $dosen->delete();
+
+    return redirect()->route('dosen.index');
     }
 }

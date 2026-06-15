@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DosenController;
+
+Route::resource('dosen', DosenController::class);
+Route::get('/admin', [DashboardController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
