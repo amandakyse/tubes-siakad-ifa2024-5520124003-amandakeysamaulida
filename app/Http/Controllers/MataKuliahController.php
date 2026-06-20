@@ -23,7 +23,7 @@ class MataKuliahController extends Controller
         $request->validate([
             'kode_mk' => 'required',
             'nama_mk' => 'required',
-            'sks' => 'required'
+            'sks' => 'required|numeric'
         ]);
 
         MataKuliah::create([
@@ -32,7 +32,8 @@ class MataKuliahController extends Controller
             'sks' => $request->sks
         ]);
 
-        return redirect()->route('matakuliah.index');
+        return redirect()->route('matakuliah.index')
+            ->with('success', 'Data mata kuliah berhasil ditambahkan');
     }
 
     public function show(MataKuliah $matakuliah)
@@ -47,19 +48,27 @@ class MataKuliahController extends Controller
 
     public function update(Request $request, MataKuliah $matakuliah)
     {
+        $request->validate([
+            'kode_mk' => 'required',
+            'nama_mk' => 'required',
+            'sks' => 'required|numeric'
+        ]);
+
         $matakuliah->update([
             'kode_mk' => $request->kode_mk,
             'nama_mk' => $request->nama_mk,
             'sks' => $request->sks
         ]);
 
-        return redirect()->route('matakuliah.index');
+        return redirect()->route('matakuliah.index')
+            ->with('success', 'Data mata kuliah berhasil diperbarui');
     }
 
     public function destroy(MataKuliah $matakuliah)
     {
         $matakuliah->delete();
 
-        return redirect()->route('matakuliah.index');
+        return redirect()->route('matakuliah.index')
+            ->with('success', 'Data mata kuliah berhasil dihapus');
     }
 }

@@ -113,12 +113,17 @@
     </div>
 
     <div class="sidebar-menu">
-        <a href="/admin">🏠 Dashboard</a>
-        <a href="/dosen">👨‍🏫 Dosen</a>
-        <a href="/mahasiswa">🎓 Mahasiswa</a>
-        <a href="/matakuliah">📚 Mata Kuliah</a>
-        <a href="/jadwal">📅 Jadwal Kuliah</a>
-        <a href="/krs">📝 KRS</a>
+
+        @if(auth()->user()->role == 'admin')
+            <a href="/admin">🏠 Dashboard</a>
+            <a href="/dosen">👨‍🏫 Dosen</a>
+            <a href="/mahasiswa">🎓 Mahasiswa</a>
+        @endif
+
+        <a href="{{ auth()->user()->role == 'admin' ? '/matakuliah' : '/lihat-matakuliah' }}">📚 Mata Kuliah</a>
+        <a href="{{ auth()->user()->role == 'admin' ? '/jadwal' : '/lihat-jadwal' }}">📅 Jadwal Kuliah</a>
+        <a href="{{ auth()->user()->role == 'admin' ? '/krs' : '/lihat-krs' }}">📝 KRS</a>
+
     </div>
 
 </div>
@@ -139,9 +144,11 @@
 
         <h4>Daftar Mata Kuliah</h4>
 
+        @if(auth()->user()->role == 'admin')
         <a href="{{ route('matakuliah.create') }}" class="btn btn-tambah">
             + Tambah Mata Kuliah
         </a>
+        @endif
 
     </div>
 
@@ -157,7 +164,11 @@
                         <th>Kode MK</th>
                         <th>Nama Mata Kuliah</th>
                         <th>SKS</th>
+
+                        @if(auth()->user()->role == 'admin')
                         <th width="180">Aksi</th>
+                        @endif
+
                     </tr>
                 </thead>
 
@@ -172,6 +183,7 @@
                         <td>{{ $matakuliah->nama_mk }}</td>
                         <td>{{ $matakuliah->sks }}</td>
 
+                        @if(auth()->user()->role == 'admin')
                         <td>
 
                             <a href="{{ route('matakuliah.edit', $matakuliah->id) }}"
@@ -194,6 +206,7 @@
                             </form>
 
                         </td>
+                        @endif
 
                     </tr>
 
@@ -209,8 +222,9 @@
 
     <br>
 
-    <a href="/admin" class="btn btn-kembali">
-        ← Kembali ke Dashboard
+    <a href="{{ auth()->user()->role == 'admin' ? '/admin' : '/dashboard' }}"
+       class="btn btn-kembali">
+        ← Kembali
     </a>
 
 </div>

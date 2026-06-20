@@ -12,16 +12,16 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-    $mahasiswas = Mahasiswa::all();
-    return view('mahasiswa.index', compact('mahasiswas'));
+        $mahasiswas = Mahasiswa::all();
+        return view('mahasiswa.index', compact('mahasiswas'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-   public function create()
+    public function create()
     {
-    return view('mahasiswa.create');
+        return view('mahasiswa.create');
     }
 
     /**
@@ -29,23 +29,24 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-    $request->validate([
-        'nim' => 'required',
-        'nama' => 'required',
-        'email' => 'required|email',
-        'jurusan' => 'required',
-        'semester' => 'required'
-    ]);
+        $request->validate([
+            'nim' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email',
+            'jurusan' => 'required',
+            'semester' => 'required'
+        ]);
 
-    Mahasiswa::create([
-        'nim' => $request->nim,
-        'nama' => $request->nama,
-        'email' => $request->email,
-        'jurusan' => $request->jurusan,
-        'semester' => $request->semester
-    ]);
+        Mahasiswa::create([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jurusan' => $request->jurusan,
+            'semester' => $request->semester
+        ]);
 
-    return redirect()->route('mahasiswa.index');
+        return redirect()->route('mahasiswa.index')
+            ->with('success', 'Data mahasiswa berhasil ditambahkan');
     }
 
     /**
@@ -61,7 +62,7 @@ class MahasiswaController extends Controller
      */
     public function edit(Mahasiswa $mahasiswa)
     {
-    return view('mahasiswa.edit', compact('mahasiswa'));
+        return view('mahasiswa.edit', compact('mahasiswa'));
     }
 
     /**
@@ -69,15 +70,24 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-    $mahasiswa->update([
-        'nim' => $request->nim,
-        'nama' => $request->nama,
-        'email' => $request->email,
-        'jurusan' => $request->jurusan,
-        'semester' => $request->semester
-    ]);
+        $request->validate([
+            'nim' => 'required',
+            'nama' => 'required',
+            'email' => 'required|email',
+            'jurusan' => 'required',
+            'semester' => 'required'
+        ]);
 
-    return redirect()->route('mahasiswa.index');
+        $mahasiswa->update([
+            'nim' => $request->nim,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jurusan' => $request->jurusan,
+            'semester' => $request->semester
+        ]);
+
+        return redirect()->route('mahasiswa.index')
+            ->with('success', 'Data mahasiswa berhasil diperbarui');
     }
 
     /**
@@ -85,8 +95,9 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-    $mahasiswa->delete();
+        $mahasiswa->delete();
 
-    return redirect()->route('mahasiswa.index');
+        return redirect()->route('mahasiswa.index')
+            ->with('success', 'Data mahasiswa berhasil dihapus');
     }
 }

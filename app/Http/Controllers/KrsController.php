@@ -25,12 +25,18 @@ class KrsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'mahasiswa_id' => 'required',
+            'jadwal_id' => 'required'
+        ]);
+
         Krs::create([
             'mahasiswa_id' => $request->mahasiswa_id,
             'jadwal_id' => $request->jadwal_id
         ]);
 
-        return redirect()->route('krs.index');
+        return redirect()->route('krs.index')
+            ->with('success', 'Data KRS berhasil ditambahkan');
     }
 
     public function show(Krs $krs)
@@ -48,18 +54,25 @@ class KrsController extends Controller
 
     public function update(Request $request, Krs $krs)
     {
+        $request->validate([
+            'mahasiswa_id' => 'required',
+            'jadwal_id' => 'required'
+        ]);
+
         $krs->update([
             'mahasiswa_id' => $request->mahasiswa_id,
             'jadwal_id' => $request->jadwal_id
         ]);
 
-        return redirect()->route('krs.index');
+        return redirect()->route('krs.index')
+            ->with('success', 'Data KRS berhasil diperbarui');
     }
 
     public function destroy(Krs $krs)
     {
         $krs->delete();
 
-        return redirect()->route('krs.index');
+        return redirect()->route('krs.index')
+            ->with('success', 'Data KRS berhasil dihapus');
     }
 }

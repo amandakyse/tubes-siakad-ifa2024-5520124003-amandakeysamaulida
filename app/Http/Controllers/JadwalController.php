@@ -25,6 +25,14 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'dosen_id' => 'required',
+            'mata_kuliah_id' => 'required',
+            'hari' => 'required',
+            'jam' => 'required',
+            'ruangan' => 'required'
+        ]);
+
         Jadwal::create([
             'dosen_id' => $request->dosen_id,
             'mata_kuliah_id' => $request->mata_kuliah_id,
@@ -33,7 +41,8 @@ class JadwalController extends Controller
             'ruangan' => $request->ruangan
         ]);
 
-        return redirect()->route('jadwal.index');
+        return redirect()->route('jadwal.index')
+            ->with('success', 'Data jadwal berhasil ditambahkan');
     }
 
     public function show(Jadwal $jadwal)
@@ -51,6 +60,14 @@ class JadwalController extends Controller
 
     public function update(Request $request, Jadwal $jadwal)
     {
+        $request->validate([
+            'dosen_id' => 'required',
+            'mata_kuliah_id' => 'required',
+            'hari' => 'required',
+            'jam' => 'required',
+            'ruangan' => 'required'
+        ]);
+
         $jadwal->update([
             'dosen_id' => $request->dosen_id,
             'mata_kuliah_id' => $request->mata_kuliah_id,
@@ -59,13 +76,15 @@ class JadwalController extends Controller
             'ruangan' => $request->ruangan
         ]);
 
-        return redirect()->route('jadwal.index');
+        return redirect()->route('jadwal.index')
+            ->with('success', 'Data jadwal berhasil diperbarui');
     }
 
     public function destroy(Jadwal $jadwal)
     {
         $jadwal->delete();
 
-        return redirect()->route('jadwal.index');
+        return redirect()->route('jadwal.index')
+            ->with('success', 'Data jadwal berhasil dihapus');
     }
 }

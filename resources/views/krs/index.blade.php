@@ -1,4 +1,3 @@
-```php
 <!DOCTYPE html>
 <html>
 
@@ -8,93 +7,91 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
-        body{
-            background:#f4f6fb;
-            font-family:'Segoe UI',sans-serif;
+        body {
+            background: #f4f6fb;
+            font-family: 'Segoe UI', sans-serif;
         }
 
-        .sidebar{
-            width:250px;
-            height:100vh;
-            background:linear-gradient(180deg,#0b3d91,#072b66);
-            position:fixed;
-            left:0;
-            top:0;
-            color:white;
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, #0b3d91, #072b66);
+            position: fixed;
+            left: 0;
+            top: 0;
+            color: white;
         }
 
-        .logo{
-            padding:25px;
-            text-align:center;
-            border-bottom:1px solid rgba(255,255,255,.2);
+        .logo {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,.2);
         }
 
-        .sidebar-menu{
-            margin-top:20px;
+        .sidebar-menu {
+            margin-top: 20px;
         }
 
-        .sidebar-menu a{
-            display:block;
-            padding:15px 25px;
-            color:white;
-            text-decoration:none;
+        .sidebar-menu a {
+            display: block;
+            padding: 15px 25px;
+            color: white;
+            text-decoration: none;
         }
 
-        .sidebar-menu a:hover{
-            background:#f4a300;
-            color:white;
+        .sidebar-menu a:hover {
+            background: #f4a300;
+            color: white;
         }
 
-        .main-content{
-            margin-left:250px;
-            padding:30px;
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
         }
 
-        .header-card{
-            background:white;
-            border-radius:15px;
-            padding:25px;
-            box-shadow:0 3px 10px rgba(0,0,0,.1);
-            margin-bottom:25px;
+        .header-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,.1);
+            margin-bottom: 25px;
         }
 
-        .title{
-            color:#0b3d91;
-            font-weight:bold;
+        .title {
+            color: #0b3d91;
+            font-weight: bold;
         }
 
-        .card-custom{
-            border:none;
-            border-radius:15px;
-            box-shadow:0 4px 15px rgba(0,0,0,.08);
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
         }
 
-        .table thead{
-            background:#0b3d91;
-            color:white;
+        .table thead {
+            background: #0b3d91;
+            color: white;
         }
 
-        .btn-tambah{
-            background:#0b3d91;
-            color:white;
+        .btn-tambah {
+            background: #0b3d91;
+            color: white;
         }
 
-        .btn-edit{
-            background:#f4a300;
-            color:white;
+        .btn-edit {
+            background: #f4a300;
+            color: white;
         }
 
-        .btn-hapus{
-            background:#dc3545;
-            color:white;
+        .btn-hapus {
+            background: #dc3545;
+            color: white;
         }
 
-        .btn-kembali{
-            background:#6c757d;
-            color:white;
+        .btn-kembali {
+            background: #6c757d;
+            color: white;
         }
-
     </style>
 
 </head>
@@ -109,12 +106,19 @@
     </div>
 
     <div class="sidebar-menu">
-        <a href="/admin">🏠 Dashboard</a>
-        <a href="/dosen">👨‍🏫 Dosen</a>
-        <a href="/mahasiswa">🎓 Mahasiswa</a>
-        <a href="/matakuliah">📚 Mata Kuliah</a>
-        <a href="/jadwal">📅 Jadwal Kuliah</a>
-        <a href="/krs">📝 KRS</a>
+
+        @if(auth()->user()->role == 'admin')
+            <a href="/admin">🏠 Dashboard</a>
+            <a href="/dosen">👨‍🏫 Dosen</a>
+            <a href="/mahasiswa">🎓 Mahasiswa</a>
+        @endif
+
+        <a href="{{ auth()->user()->role == 'admin' ? '/matakuliah' : '/lihat-matakuliah' }}">📚 Mata Kuliah</a>
+
+        <a href="{{ auth()->user()->role == 'admin' ? '/jadwal' : '/lihat-jadwal' }}">📅 Jadwal Kuliah</a>
+
+        <a href="{{ auth()->user()->role == 'admin' ? '/krs' : '/lihat-krs' }}">📝 KRS</a>
+
     </div>
 
 </div>
@@ -135,9 +139,11 @@
 
         <h4>Daftar KRS</h4>
 
+        @if(auth()->user()->role == 'admin')
         <a href="{{ route('krs.create') }}" class="btn btn-tambah">
             + Tambah KRS
         </a>
+        @endif
 
     </div>
 
@@ -154,13 +160,17 @@
                         <th>Mata Kuliah</th>
                         <th>Dosen</th>
                         <th>Hari</th>
+
+                        @if(auth()->user()->role == 'admin')
                         <th width="180">Aksi</th>
+                        @endif
+
                     </tr>
                 </thead>
 
                 <tbody>
 
-                @foreach($krs as $item)
+                @foreach ($krs as $item)
 
                     <tr>
 
@@ -170,6 +180,7 @@
                         <td>{{ $item->jadwal->dosen->nama }}</td>
                         <td>{{ $item->jadwal->hari }}</td>
 
+                        @if(auth()->user()->role == 'admin')
                         <td>
 
                             <a href="{{ route('krs.edit', $item->id) }}"
@@ -192,6 +203,7 @@
                             </form>
 
                         </td>
+                        @endif
 
                     </tr>
 
@@ -207,8 +219,9 @@
 
     <br>
 
-    <a href="/admin" class="btn btn-kembali">
-        ← Kembali ke Dashboard
+    <a href="{{ auth()->user()->role == 'admin' ? '/admin' : '/dashboard' }}"
+       class="btn btn-kembali">
+        ← Kembali
     </a>
 
 </div>
