@@ -1,28 +1,100 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Tambah Mata Kuliah</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #eef3f8;
+        }
+
+        .card-custom {
+            border: none;
+            border-top: 5px solid #f4a300;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .1);
+            border-radius: 10px;
+        }
+
+        .title {
+            color: #0b3d91;
+            font-weight: bold;
+        }
+
+        .btn-simpan {
+            background: #0b3d91;
+            color: white;
+            border: none;
+        }
+
+        .btn-simpan:hover {
+            background: #082d6b;
+            color: white;
+        }
+
+        .btn-kembali {
+            background: #f4a300;
+            color: white;
+            border: none;
+        }
+
+        .btn-kembali:hover {
+            background: #d98f00;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>Tambah Mata Kuliah</h1>
+<div class="container mt-5">
 
-<form action="{{ route('matakuliah.store') }}" method="POST">
-    @csrf
+    <div class="card card-custom">
+        <div class="card-body">
 
-    <p>Kode MK</p>
-    <input type="text" name="kode_mk">
+            <h2 class="title mb-4">Tambah Data Mata Kuliah</h2>
 
-    <p>Nama Mata Kuliah</p>
-    <input type="text" name="nama_mk">
+            <form action="{{ route('matakuliah.store') }}" method="POST">
 
-    <p>SKS</p>
-    <input type="number" name="sks">
+                @csrf
 
-    <br><br>
+                <div class="mb-3">
+                    <label class="form-label">Kode MK</label>
+                    <input type="text"
+                           name="kode_mk"
+                           class="form-control">
+                </div>
 
-    <button type="submit">Simpan</button>
-</form>
+                <div class="mb-3">
+                    <label class="form-label">Nama Mata Kuliah</label>
+                    <input type="text"
+                           name="nama_mk"
+                           class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">SKS</label>
+                    <input type="number"
+                           name="sks"
+                           class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-simpan">
+                    Simpan
+                </button>
+
+                <a href="/matakuliah" class="btn btn-kembali">
+                    Kembali
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
