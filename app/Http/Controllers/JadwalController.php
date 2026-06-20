@@ -3,63 +3,69 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Dosen;
+use App\Models\MataKuliah;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $jadwals = Jadwal::all();
+        return view('jadwal.index', compact('jadwals'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $dosens = Dosen::all();
+        $mataKuliahs = MataKuliah::all();
+
+        return view('jadwal.create', compact('dosens', 'mataKuliahs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        Jadwal::create([
+            'dosen_id' => $request->dosen_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
+            'hari' => $request->hari,
+            'jam' => $request->jam,
+            'ruangan' => $request->ruangan
+        ]);
+
+        return redirect()->route('jadwal.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Jadwal $jadwal)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Jadwal $jadwal)
     {
-        //
+        $dosens = Dosen::all();
+        $mataKuliahs = MataKuliah::all();
+
+        return view('jadwal.edit', compact('jadwal', 'dosens', 'mataKuliahs'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Jadwal $jadwal)
     {
-        //
+        $jadwal->update([
+            'dosen_id' => $request->dosen_id,
+            'mata_kuliah_id' => $request->mata_kuliah_id,
+            'hari' => $request->hari,
+            'jam' => $request->jam,
+            'ruangan' => $request->ruangan
+        ]);
+
+        return redirect()->route('jadwal.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Jadwal $jadwal)
     {
-        //
+        $jadwal->delete();
+
+        return redirect()->route('jadwal.index');
     }
 }
