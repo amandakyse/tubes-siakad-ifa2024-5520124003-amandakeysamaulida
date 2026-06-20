@@ -7,6 +7,7 @@ Sistem Informasi Akademik (SIAKAD) berbasis Laravel yang digunakan untuk mengelo
 Aplikasi memiliki dua hak akses:
 
 ### Admin (Dosen)
+
 Admin dapat:
 
 - Mengelola Data Dosen
@@ -17,6 +18,7 @@ Admin dapat:
 - Menambah, mengubah, dan menghapus data
 
 ### Mahasiswa
+
 Mahasiswa dapat:
 
 - Melihat Data Mata Kuliah
@@ -118,9 +120,9 @@ password
 
 ---
 
-## Data Mahasiswa
+<!-- ## Data Mahasiswa
 
-![Data Mahasiswa](screenshots/data_mahasiswa_D.png)
+![Data Mahasiswa](screenshots/data_mahasiswa_D.png) -->
 
 ---
 
@@ -142,9 +144,9 @@ password
 
 ---
 
-## Dashboard Mahasiswa
+<!-- ## Dashboard Mahasiswa
 
-![Dashboard Mahasiswa](screenshots/dashboard_mahasiswa.png)
+![Dashboard Mahasiswa](screenshots/login_mhs.png) -->
 
 ---
 
