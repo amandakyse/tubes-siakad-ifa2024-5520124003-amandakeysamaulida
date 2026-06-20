@@ -3,63 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Krs;
+use App\Models\Mahasiswa;
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
 class KrsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $krs = Krs::all();
+        return view('krs.index', compact('krs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $mahasiswas = Mahasiswa::all();
+        $jadwals = Jadwal::all();
+
+        return view('krs.create', compact('mahasiswas', 'jadwals'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        Krs::create([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            'jadwal_id' => $request->jadwal_id
+        ]);
+
+        return redirect()->route('krs.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Krs $krs)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Krs $krs)
     {
-        //
+        $mahasiswas = Mahasiswa::all();
+        $jadwals = Jadwal::all();
+
+        return view('krs.edit', compact('krs', 'mahasiswas', 'jadwals'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Krs $krs)
     {
-        //
+        $krs->update([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            'jadwal_id' => $request->jadwal_id
+        ]);
+
+        return redirect()->route('krs.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Krs $krs)
     {
-        //
+        $krs->delete();
+
+        return redirect()->route('krs.index');
     }
 }
