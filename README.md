@@ -1,3 +1,53 @@
+## Demo Aplikasi
+
+### Link Hosting
+
+Aplikasi dapat diakses melalui :
+
+https://amanda.ifalgorithm24.web.id/
+
+### Akun Login Admin (Dosen)
+
+Email :
+
+admin@gmail.com
+
+Password :
+
+password
+
+### Akun Login Mahasiswa
+
+Email :
+
+mahasiswa@gmail.com
+
+Password :
+
+password
+
+## Akun Login
+
+### Admin
+
+Email :
+
+admin@gmail.com
+
+Password :
+
+password
+
+### Mahasiswa
+
+Email :
+
+mahasiswa@gmail.com
+
+Password :
+
+password
+
 # Sistem Informasi Akademik (SIAKAD)
 
 ## Deskripsi
